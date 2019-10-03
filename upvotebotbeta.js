@@ -118,7 +118,7 @@ function upVote(curBlok){
           }
            });
 	}
-    if(curBlock - upVoteQueue[0].block < delay){
+    if(curBlok - upVoteQueue[0].block < delay){
     	console.log("another x blocks for next upvote" )
     	return;
     }
