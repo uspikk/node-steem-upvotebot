@@ -9,11 +9,12 @@ let delay = 2000;
 setInterval(saveFollowers, 4000);
 getfollowers();//gets the followers from a file
 blockscanner();//starts blockscanner
+setInterval(upVote(AblockThat), 10000);
 //getBlock(36960418);//starts getBlock function to get block contents needs to have a input of the block number
 //setInterval(filteringContent, 10000);
 
 
-
+let AblockThat;
 function blockscanner(){//function to stream the latest block number
 	steem.api.streamBlockNumber(function(err1, newestblock) {//api call to stream the latest block number
 //		console.log(err1, newestblock);//logs the result of the api call
@@ -25,11 +26,12 @@ function blockscanner(){//function to stream the latest block number
 		else{
          getBlock(newestblock);//passes the block to getBlock function
          //console.log("upvote Queue: " + upVoteQueue.length);
-         upVote(newestblock);
+        // upVote(newestblock);
+        AblockThat = newestblock;
      }
 });
 };
-
+let AblockThat;
 function getBlock(blockNum){//function to get the data from the block number
 	steem.api.getBlock(blockNum, function(err, result) {//api call to get the block contents
       //console.log(err, result);//logs the result of the api call
@@ -110,11 +112,12 @@ function upVote(curBlok){
           console.log(err, result);
           if(err){
           	console.log(err)
-          	return
+            blockscanner();
+          	return;
           }
           if(result){
           	upVoteQueue[0].shift();
-          	return
+          	return;
           }
            });
 	}
