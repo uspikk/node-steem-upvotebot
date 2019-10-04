@@ -104,19 +104,25 @@ function filteringContent(){//second layer at filtering content it looks for if 
     };
 };//end function
 
-
-function upVote(curBlok){
+let upvoteCounter = 0;
+function upVote(curBlock){
 	if (upVoteQueue === undefined || upVoteQueue.length == 0) {
  //   console.log("no posts to upvote")
     return;
 }
-	if(curBlok - upVoteQueue[0].block > delay ){
+	if(curBlock - upVoteQueue[0].block > delay ){
 		//console.log(curBlock - upVoteQueue[0].block)
 		console.log("Upvoting...")
          steem.broadcast.vote(wif, voter, upVoteQueue[0].author, upVoteQueue[0].url, weight, function(err, result) {
           console.log(err, result);
+          if(err && upvoteCounter === 3){
+            console.log("tried 3 times to upvote, skipping")
+            upvoteCounter = 0;
+            upVoteQueue[0].shift();
+          }
           if(err){
           	console.log(err)
+            upvoteCounter++
           	return
           }
           if(result){
@@ -126,7 +132,7 @@ function upVote(curBlok){
            });
 	}
     if(curBlock - upVoteQueue[0].block < delay){
-    	console.log("another x blocks for next upvote" )
+    	console.log("upvoting in " + curBlock - upVoteQueue[0].block - delay + " blocks")
     	return;
     }
 
