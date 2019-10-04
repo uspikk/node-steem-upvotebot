@@ -1,8 +1,9 @@
 # node steem upvotebot
- upvotes your followers
 
-npm instal steem
+## upvotes your followers
 
-and node upvotebot to run
+###npm instal steem
 
-on the first run you have to let it run for a minute to create your followers list file, then you have to close it and run it again for it to load up the followers file.
+###and node upvotebot to run
+
+needs a couple of updates before considered a functional bot. Proof of concept at current stage
