@@ -6,18 +6,18 @@ let weight = 1000;
 let delay = 2000;
 
 
-setInterval(saveFollowers, 4000);
+
+//setInterval(saveFollowers, 4000);
 getfollowers();//gets the followers from a file
 blockscanner();//starts blockscanner
-setInterval(interval(), 15000);
 //getBlock(36960418);//starts getBlock function to get block contents needs to have a input of the block number
 //setInterval(filteringContent, 10000);
+setInterval(passUpvote, 60000);
+let theLatestBlock = 0;
+function passUpvote(){
+upVote(theLatestBlock);
+};
 
-function interval(){
-  upVote(aBlockThat)
-}
-
-let aBlockThat;
 function blockscanner(){//function to stream the latest block number
 	steem.api.streamBlockNumber(function(err1, newestblock) {//api call to stream the latest block number
 //		console.log(err1, newestblock);//logs the result of the api call
@@ -27,14 +27,16 @@ function blockscanner(){//function to stream the latest block number
 			return;
 		}
 		else{
-         getBlock(newestblock);//passes the block to getBlock function
+         getBlock(newestblock);
+         theLatestBlock = newestblock;
+         //passes the block to getBlock function
          //console.log("upvote Queue: " + upVoteQueue.length);
-        // upVote(newestblock);
-        aBlockThat = newestblock;
+        // upVote(newestblock); // doesn't work because it tries to upvote twice in a block
      }
 });
 };
-let AblockThat;
+
+
 function getBlock(blockNum){//function to get the data from the block number
 	steem.api.getBlock(blockNum, function(err, result) {//api call to get the block contents
       //console.log(err, result);//logs the result of the api call
@@ -115,16 +117,15 @@ function upVote(curBlok){
           console.log(err, result);
           if(err){
           	console.log(err)
-            blockscanner();
-          	return;
+          	return
           }
           if(result){
           	upVoteQueue[0].shift();
-          	return;
+          	return
           }
            });
 	}
-    if(curBlok - upVoteQueue[0].block < delay){
+    if(curBlock - upVoteQueue[0].block < delay){
     	console.log("another x blocks for next upvote" )
     	return;
     }
