@@ -2,8 +2,8 @@
 
 ## upvotes your followers
 
-###npm instal steem
+npm instal steem
 
-###and node upvotebot to run
+and node upvotebot to run
 
 needs a couple of updates before considered a functional bot. Proof of concept at current stage
