@@ -132,6 +132,9 @@ function upVote(curBlock){
            });
 	}
     if(curBlock - upVoteQueue[0].block < delay){
+      console.log("the delay " + delay)
+      console.log("the current block " + curBlock);
+      console.log("the upvotequeue block "upVoteQueue[0].block);
     	console.log("upvoting in " + curBlock - upVoteQueue[0].block - delay + " blocks")
     	return;
     }
