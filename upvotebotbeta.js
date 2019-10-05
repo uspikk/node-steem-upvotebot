@@ -118,7 +118,7 @@ function upVote(curBlock){
           if(err && upvoteCounter === 3){
             console.log("tried 3 times to upvote, skipping")
             upvoteCounter = 0;
-            upVoteQueue[0].shift();
+            upVoteQueue.shift();
           }
           if(err){
           	console.log(err)
@@ -126,16 +126,18 @@ function upVote(curBlock){
           	return
           }
           if(result){
-          	upVoteQueue[0].shift();
+            console.log(result)
+          	upVoteQueue.shift();
           	return
           }
            });
 	}
     if(curBlock - upVoteQueue[0].block < delay){
-      console.log("the delay " + delay)
-      console.log("the current block " + curBlock);
-      console.log("the upvotequeue block " + upVoteQueue[0].block);
-    	console.log("upvoting in " + curBlock - upVoteQueue[0].block - delay + " blocks")
+      var timeTilVote = curBlock - upVoteQueue[0].block - delay;
+     // console.log("the delay " + delay)
+     // console.log("the current block " + curBlock);
+     // console.log("the upvotequeue block " + upVoteQueue[0].block);
+    	console.log("upvoting in " + Math.abs(timeTilVote) + " blocks");
     	return;
     }
 
