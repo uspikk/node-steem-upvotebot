@@ -95,8 +95,7 @@ let imFollowing = [];//variable to store all the people a user follows
     if(result){//if it returns a result
 	  var following = [];//creates a temp storage
 	  for(var i = 0; i<result.length; i++){following.push(result[i].following);};//for loop to filter out the people
-      imFollowing = following;//change storages from local to global
-	  console.log("updated follow list.");}//self explanatory
+      if(imFollowing !== following){imFollowing = following;console.log("updated follow list.");}}//change storages from local to global
     else{console.log("wtf3")};});return;};//this should never run
 
 let stuffToUpvote = []
