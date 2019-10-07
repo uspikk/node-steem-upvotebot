@@ -126,7 +126,9 @@ let upvoteCounter = 0;//this counts how many times bot has tried to upvote a pie
    if(latestBlock - stuffToUpvote[0].blockNr > delay){//if latestblock - stufftoupvote is bigger than the delay it tries to upvote the content
     steem.broadcast.vote(wif, username, stuffToUpvote[0].tx.operations[0][1].author, stuffToUpvote[0].tx.operations[0][1].permlink, weight, function(err, result) {//api call
     if(err){console.log(err);console.log("trying again");upvoteCounter++;return;}//logs if error tries again
-    if(result){console.log(result);upvoteCounter=0;stuffToUpvote.shift();}else{return;};});}
+    if(result){console.log("voting success!");console.log("voted for: " + stuffToUpvote[0].tx.operations[0][1].author);
+    console.log("transaction id: " + result.id);console.log("operations: " result.operations);
+    upvoteCounter=0;stuffToUpvote.shift();}else{return;};});}
    if(latestBlock - stuffToUpvote[0].blockNr < delay){
     console.log("upvoting in " + Math.abs(latestBlock - stuffToUpvote[0].blockNr - delay) + " blocks");
   return;};}else{console.log("wtf5")};};//this should not run
