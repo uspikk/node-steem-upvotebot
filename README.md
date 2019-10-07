@@ -4,6 +4,6 @@
 
 npm instal steem
 
-and node upvotebot to run
+and node bot to run
 
-needs a couple of updates before considered a functional bot. Proof of concept at current stage
+testing stages
