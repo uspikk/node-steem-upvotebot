@@ -1,7 +1,7 @@
 let steem = require("steem");
 let username = "estonia";//your steem username
 let wif = "";//your steem posting key
-let delay = 100;//delay in blocks
+let delay = 140;//delay in blocks
 let weight = 10000;//vote weight
 
 
@@ -96,11 +96,13 @@ let imFollowing = [];//variable to store all the people a user follows
     if(err){console.log("could not get followers.");getFollowers();return;}//if it returns error, tries to call it again
     if(result){//if it returns a result
 	  var following = [];//creates a temp storage
-	  for(var i = 0; i<result.length; i++){following.push(result[i].following);};//for loop to filter out the people
-      if(imFollowing !== following){imFollowing = following;console.log("updated follow list.");}}//change storages from local to global
-    else{console.log("wtf3")};});return;};//this should never run
+	   for(var i = 0; i<result.length; i++){following.push(result[i].following);};//for loop to filter out the people
+     for(var i = 0; i<following.length;i++){//checks if the array has changed
+      if(following[i] === imFollowing[i]){continue;}
+      if(following[i] !== imFollowing[i]){imFollowing = following;console.log("updated follow list.");return;}
+      else{console.log("wtf6")};};}else{console.log("wtf3")};});return;};//this should never run
 
-let stuffToUpvote = []
+let stuffToUpvote = [];
  function filterContent(){//checks if any of the authors that we saved matches anyone we follow
   if(contentToFilter.length === 0){return;}//returns if there is no content
   if(contentToFilter.length > 0){//if there is content runs the block of code
