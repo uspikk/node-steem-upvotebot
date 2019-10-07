@@ -2,7 +2,9 @@ let steem = require("steem");
 let username = "estonia";//your steem username
 let wif = "";//your steem posting key
 let delay = 100;//delay in blocks
-let weight = 10000;
+let weight = 10000;//vote weight
+
+
 
 let genesisBlcok = 0;//first of the bunch
 let bl0cks = []; // array of blocks 
