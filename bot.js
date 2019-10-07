@@ -123,9 +123,10 @@ let upvoteCounter = 0;//this counts how many times bot has tried to upvote a pie
    console.log("tried 3 times to upvote, removing content from queue");
    stuffToUpvote.shift();upvoteCounter = 0;return;}
   if(stuffToUpvote.length > 0){//if it has any content to upvote, runs this block of code
-   if(latestBlock - stuffToUpvote[0].blockNr > delay){//if latestblock - stufftoupvote is bigger than the delay it tries to upvote the content
+   if(latestBlock - stuffToUpvote[0].blockNr > delay){//if latestblock - stuffToUpvote is bigger than the delay it tries to upvote the content
     steem.broadcast.vote(wif, username, stuffToUpvote[0].tx.operations[0][1].author, stuffToUpvote[0].tx.operations[0][1].permlink, weight, function(err, result) {//api call
-    if(err){console.log(err);console.log("trying again");upvoteCounter++;return;}//logs if error tries again
+    if(err){if(err.data.code === 10){console.log("already voted for this in a similar way.");stuffToUpvote.shift();upvoteCounter=0;}
+    console.log(err);console.log("trying again");upvoteCounter++;return;}//logs if error tries again
     if(result){console.log("voting success!");console.log("voted for: " + stuffToUpvote[0].tx.operations[0][1].author);
     console.log("transaction id: " + result.id);console.log("operations: " + result.operations);
     upvoteCounter=0;stuffToUpvote.shift();}else{return;};});}
