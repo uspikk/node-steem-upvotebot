@@ -112,20 +112,20 @@ let stuffToUpvote = []
    continue;};};contentToFilter.shift();}//shifts content if it doesn't find any match
 else{console.log("wtf4")}};//this should never run
 
-let upvoteCounter = 0;
-function upVoteContent(){
-if(stuffToUpvote.length === 0){return;}
-if(upvoteCounter === 3){
-console.log("tried 3 times to upvote, removing content from queue");
-stuffToUpvote.shift();upvoteCounter = 0;return;}
-if(stuffToUpvote.length > 0){
-if(latestBlock - stuffToUpvote[0].blockNr > delay){
-steem.broadcast.vote(wif, username, stuffToUpvote[0].tx.operations[0][1].author, stuffToUpvote[0].tx.operations[0][1].permlink, weight, function(err, result) {
-if(err){console.log(err);console.log("trying again");upvoteCounter++;return;}
-if(result){console.log(result);upvoteCounter=0;stuffToUpvote.shift();}else{return;};});}
-if(latestBlock - stuffToUpvote[0].blockNr < delay){
-console.log("upvoting in " + Math.abs(latestBlock - stuffToUpvote[0].blockNr - delay) + " blocks");
-return;};}else{console.log("wtf5")};};//this should not run
+let upvoteCounter = 0;//this counts how many times bot has tried to upvote a piece of content
+ function upVoteContent(){//this function is dedicated to upvoting
+  if(stuffToUpvote.length === 0){return;}//if the array doesn't contain anything, returns
+  if(upvoteCounter === 3){//if upvotecounter has reached 3 then it removes the content from queue
+   console.log("tried 3 times to upvote, removing content from queue");
+   stuffToUpvote.shift();upvoteCounter = 0;return;}
+  if(stuffToUpvote.length > 0){//if it has any content to upvote, runs this block of code
+   if(latestBlock - stuffToUpvote[0].blockNr > delay){//if latestblock - stufftoupvote is bigger than the delay it tries to upvote the content
+    steem.broadcast.vote(wif, username, stuffToUpvote[0].tx.operations[0][1].author, stuffToUpvote[0].tx.operations[0][1].permlink, weight, function(err, result) {//api call
+    if(err){console.log(err);console.log("trying again");upvoteCounter++;return;}//logs if error tries again
+    if(result){console.log(result);upvoteCounter=0;stuffToUpvote.shift();}else{return;};});}
+   if(latestBlock - stuffToUpvote[0].blockNr < delay){
+    console.log("upvoting in " + Math.abs(latestBlock - stuffToUpvote[0].blockNr - delay) + " blocks");
+  return;};}else{console.log("wtf5")};};//this should not run
 
 
 
