@@ -82,6 +82,8 @@ let contentToFilter = [];
 	if(blockContentArray[0].blockTxs[i].operations[0][0] === "account_witness_vote"){continue;}
 	if(blockContentArray[0].blockTxs[i].operations[0][0] === "request_account_recovery"){continue;}
 	if(blockContentArray[0].blockTxs[i].operations[0][0] === "recover_account"){continue;}
+    if(blockContentArray[0].blockTxs[i].operations[0][0] === "witness_update"){continue;}
+    if(blockContentArray[0].blockTxs[i].operations[0][0] === "set_withdraw_vesting_route"){continue;}
 	else{console.log("I dunno what is this: " + blockContentArray[0].blockTxs[i].operations[0][0])};}//logs transactions it doesn't know yet
   blockContentArray.shift();return;}//removes the first of the array so it doesn't cycle the same content twice
   else{console.log("wtf2");return;};};//this should never run
@@ -128,7 +130,7 @@ let upvoteCounter = 0;//this counts how many times bot has tried to upvote a pie
     if(err){if(err.data.code === 10){console.log("already voted for this in a similar way.");stuffToUpvote.shift();upvoteCounter=0;}
     console.log(err);console.log("trying again");upvoteCounter++;return;}//logs if error tries again
     if(result){console.log("voting success!");console.log("voted for: " + stuffToUpvote[0].tx.operations[0][1].author);
-    console.log("transaction id: " + result.id);console.log("operations: " + result.operations);
+    console.log("transaction id: " + result.id);
     upvoteCounter=0;stuffToUpvote.shift();}else{return;};});}
    if(latestBlock - stuffToUpvote[0].blockNr < delay){
     console.log("upvoting in " + Math.abs(latestBlock - stuffToUpvote[0].blockNr - delay) + " blocks");
