@@ -84,6 +84,7 @@ let contentToFilter = [];
 	if(blockContentArray[0].blockTxs[i].operations[0][0] === "recover_account"){continue;}
     if(blockContentArray[0].blockTxs[i].operations[0][0] === "witness_update"){continue;}
     if(blockContentArray[0].blockTxs[i].operations[0][0] === "set_withdraw_vesting_route"){continue;}
+    if(blockContentArray[0].blockTxs[i].operations[0][0] === "account_witness_proxy"){continue;}
 	else{console.log("I dunno what is this: " + blockContentArray[0].blockTxs[i].operations[0][0])};}//logs transactions it doesn't know yet
   blockContentArray.shift();return;}//removes the first of the array so it doesn't cycle the same content twice
   else{console.log("wtf2");return;};};//this should never run
