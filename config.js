@@ -1,13 +1,3 @@
-//devrelease should include changes in:
-//mainaccount
-//mainwif
-//altaccs
-
-
-//
-//½½½above and below needs to be true½½½
-//
-
 
 const configurationFile ={
 	"steemMainAccount" : "estonia",
